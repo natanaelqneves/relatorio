@@ -9,29 +9,26 @@ public class Relatorio {
     private Carro carro;
     private LocalDate dataDoServico;
     private LocalDate dataDoEnvio;
-    private int km_atual;
     private int km_percorrido;
     private boolean avariaNoServico;
     private String relato;
 
-    public Relatorio(Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_atual, int km_percorrido, boolean avariaNoServico, String relato) {
+    public Relatorio(Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_percorrido, boolean avariaNoServico, String relato) {
         this.motorista = motorista;
         this.carro = carro;
         this.dataDoServico = dataDoServico;
         this.dataDoEnvio = dataDoEnvio;
-        this.km_atual = km_atual;
         this.km_percorrido = km_percorrido;
         this.avariaNoServico = avariaNoServico;
         this.relato = relato;
     }
 
-    public Relatorio(int id, Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_atual, int km_percorrido, boolean avariaNoServico, String relato) {
+    public Relatorio(int id, Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_percorrido, boolean avariaNoServico, String relato) {
         this.id = id;
         this.motorista = motorista;
         this.carro = carro;
         this.dataDoServico = dataDoServico;
         this.dataDoEnvio = dataDoEnvio;
-        this.km_atual = km_atual;
         this.km_percorrido = km_percorrido;
         this.avariaNoServico = avariaNoServico;
         this.relato = relato;
@@ -75,14 +72,6 @@ public class Relatorio {
 
     public void setDataDoEnvio(LocalDate dataDoEnvio) {
         this.dataDoEnvio = dataDoEnvio;
-    }
-
-    public int getKm_atual() {
-        return km_atual;
-    }
-
-    public void setKm_atual(int km_atual) {
-        this.km_atual = km_atual;
     }
 
     public int getKm_percorrido() {

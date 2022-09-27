@@ -5,7 +5,7 @@ import br.com.natanaelqn.relatorio.database.RelatorioBD;
 public class RelatorioGUI extends javax.swing.JFrame {
 
     public RelatorioGUI() {
-        RelatorioBD.inicializarBD();
+        //RelatorioBD.inicializarBD();
         initComponents();
     }
 

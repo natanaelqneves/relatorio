@@ -5,11 +5,11 @@ public class Carro {
     private String placa;
     private String marca;
     private String modelo;
-    private String km_atual;
+    private int km_atual;
     private boolean avariado;
     private String avaria;
 
-    public Carro(String placa, String marca, String modelo, String km_atual, boolean avariado, String avaria) {
+    public Carro(String placa, String marca, String modelo, int km_atual, boolean avariado, String avaria) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -18,7 +18,7 @@ public class Carro {
         this.avaria = avaria;
     }
 
-    public Carro(int id, String placa, String marca, String modelo, String km_atual, boolean avariado, String avaria) {
+    public Carro(int id, String placa, String marca, String modelo, int km_atual, boolean avariado, String avaria) {
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -56,11 +56,11 @@ public class Carro {
         this.modelo = modelo;
     }
 
-    public String getKm_atual() {
+    public int getKm_atual() {
         return km_atual;
     }
 
-    public void setKm_atual(String km_atual) {
+    public void setKm_atual(int km_atual) {
         this.km_atual = km_atual;
     }
 
