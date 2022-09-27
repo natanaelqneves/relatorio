@@ -14,13 +14,13 @@ public class RelatorioBD {
         String sql;
         Connection con = conectar();
         //DROP DE TABELAS, CASO EXISTAM
-       /* sql = "Drop table if exists motorista";
+       /*sql = "Drop table if exists motorista";
         execute(con, sql);
         sql = "Drop table if exists diretor";
         execute(con, sql);
         sql = "Drop table if exists carro";
-        execute(con, sql);
-        */sql = "Drop table if exists relatorio";
+        execute(con, sql);*/
+        sql = "Drop table if exists relatorio";
         execute(con, sql);
 
         //CRIAÇÃO DAS TABELAS, CASO NÃO EXISTAM
@@ -71,20 +71,20 @@ public class RelatorioBD {
         execute(con, sql);
 
         //INSERIR INTORMAÇÕES DAS ENTIDADES
-        /*sql = "Insert into diretor (matricula, nome, nomeDeUsuario, senha) values ('2022001', 'Renan', 'renanqn', '123456')";
+       /* sql = "Insert into diretor (matricula, nome, nomeDeUsuario, senha) values ('2022001', 'Renan', 'renanqn', '123456')";
         execute(con, sql);
         sql = "Insert into motorista (matricula, nome, nomeDeUsuario, senha) values ('2022002', 'Natan', 'natanqn', '654321')";
         execute(con, sql);
         sql = "Insert into carro (placa, marca, modelo, km_atual, avariado) values ('AAA1234', 'Nissan', 'Frontier', 255, 0)";
         execute(con, sql);
-        sql = "Insert into carro (placa, marca, modelo, km_atual, avariado) values ('BBB5678', 'Toyota', 'Hilux', 331, 0)";
+        sql = "Insert into carro (placa, marca, modelo, km_atual, avariado) values ('BBB5678', 'Toyota', 'Hilux', 331, 0)";*/
         execute(con, sql);
         sql = "Insert into relatorio (idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico) values (1, 1, '2022-09-25', '2022-09-26', 55, 0)";
         execute(con, sql);
         sql = "Insert into relatorio (idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico) values (1, 1, '2022-09-27', '2022-09-27', 45, 0)";
         execute(con, sql);
         sql = "Insert into relatorio (idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato) values (1, 2, '2022-09-27', '2022-09-27', 62, 1, 'Lanterna direita traseira')";
-        execute(con, sql);*/
+        execute(con, sql);
         desconectar(con);
     }
 

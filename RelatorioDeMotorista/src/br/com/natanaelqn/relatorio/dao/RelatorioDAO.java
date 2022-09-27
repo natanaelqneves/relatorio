@@ -1,72 +1,93 @@
 package br.com.natanaelqn.relatorio.dao;
 
 import br.com.natanaelqn.relatorio.database.RelatorioBD;
+import br.com.natanaelqn.relatorio.entity.Carro;
+import br.com.natanaelqn.relatorio.entity.Motorista;
 import br.com.natanaelqn.relatorio.entity.Relatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RelatorioDAO {
+
+    //public static final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
     private static final String INSERIR_SQL = "Insert into relatorio "
-            + "(idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, avaria) "
-            + "values ('%s', '%s', '%s', %d, %b, '%s')";
-    
+            + "(idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato) "
+            + "values (%d, %d, '%s', '%s', %d, %b, '%s')";
+
     private static final String REMOVER_SQL = "delete from relatorio "
             + "where id=%d";
-    
+
     private static final String ALTERAR_SQL = "Update relatorio "
-            + "set km_atual =%d, avariado=%b, avaria='%s' where id=%d";
-    
+            + "set dataDoServico='%s', kmPercorrido =%d, avariaNoServico=%b, relato='%s' where id=%d";
+
     private static final String SELECIONAR_SQL = "Select * from relatorio";
-    
+
     private static final String SELECT_POR_ID = "Select * from relatorio "
             + "where id = %d";
-    
-    private static final String SELECT_POR_NOME = "Select * from relatorio "
-            + "where nome = '%s'";
-    /*
-     public static void inserir(Relatorio relatorio) {
-        String sql = String.format(INSERIR_SQL, 
-                relatorio.getPlaca(),
-                carro.getMarca(),
-                carro.getModelo(),
-                carro.getKm_atual(),
-                carro.isAvariado(),
-                carro.getAvaria());
+
+    private static final String SELECT_POR_IDMOTORISTA = "Select * from relatorio "
+            + "where idMotorista = %d";
+
+    private static final String SELECT_POR_IDCARRO = "Select * from relatorio "
+            + "where idCarro = %d";
+
+    private static final String SELECT_POR_DATA = "Select * from relatorio "
+            + "where dataDoServico = '%s'";
+
+    private static final String SELECT_POR_AVARIADO = "Select * from relatorio "
+            + "where avariaNoServico = %b";
+
+    public static void inserir(Relatorio relatorio) {
+        String sql = String.format(INSERIR_SQL,
+                relatorio.getMotorista().getId(),
+                relatorio.getCarro().getId(),
+                relatorio.getDataDoServico(),
+                relatorio.getDataDoEnvio(),
+                relatorio.getKm_percorrido(),
+                relatorio.isAvariaNoServico(),
+                relatorio.getRelato());
         RelatorioBD.execute(sql, true);
     }
 
-     public static void remover(Carro carro) {
-        String sql = String.format(REMOVER_SQL, carro.getId());
+    public static void remover(Relatorio relatorio) {
+        String sql = String.format(REMOVER_SQL, relatorio.getId());
         RelatorioBD.execute(sql, true);
     }
-     
-    public static void alterar(Carro carro) {
+
+    public static void alterar(Relatorio relatorio) {
         String sql = String.format(ALTERAR_SQL,
-                carro.getKm_atual(),
-                carro.isAvariado(),
-                carro.getAvaria());
+                relatorio.getDataDoServico().toString(),
+                relatorio.getKm_percorrido(),
+                relatorio.isAvariaNoServico(),
+                relatorio.getRelato());
         RelatorioBD.execute(sql, true);
     }
 
-    public static List<Carro> selecionarTodos() {
-        List<Carro> lista = new ArrayList<>();
+    public static List<Relatorio> selecionarTodos() throws ParseException {
+        List<Relatorio> lista = new ArrayList<>();
         Connection con = RelatorioBD.conectar();
         try {
             ResultSet rs = con.createStatement()
                     .executeQuery(SELECIONAR_SQL);
             while (rs.next()) {
-                byte id = rs.getByte("id");
-                String placa = rs.getString("placa");
-                String marca = rs.getString("marca");
-                String modelo = rs.getString("modelo");
-                int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                Boolean avariado = Boolean.parseBoolean(rs.getString("avariado"));
-                String avaria = rs.getString("avaria");
-                lista.add(new Carro(id, placa, marca, modelo, km_atual, avariado, avaria));
+                int id = rs.getInt("id");
+                int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
+                Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
+                int idCarro = Integer.parseInt(rs.getString("idCarro"));
+                Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
+                LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
+            LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
+                int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
+                Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+                String relato = rs.getString("relato");
+                lista.add(new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato));
             }
             RelatorioBD.desconectar(con);
         } catch (SQLException e) {
@@ -75,23 +96,25 @@ public class RelatorioDAO {
         }
         return lista;
     }
-    
-    
-    public static Carro selecionarCarroPorId(int idPesquisa) {
-        Carro retorno = null;
+
+    public static Relatorio selecionarRelatorioPorId(int idPesquisa) throws ParseException {
+        Relatorio retorno = null;
         Connection con = RelatorioBD.conectar();
         try {
             String sql = String.format(SELECT_POR_ID, idPesquisa);
             ResultSet rs = con.createStatement().executeQuery(sql);
             rs.next();
-            byte id = rs.getByte("id");
-                String placa = rs.getString("placa");
-                String marca = rs.getString("marca");
-                String modelo = rs.getString("modelo");
-                int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                Boolean avariado = Boolean.parseBoolean(rs.getString("avariado"));
-                String avaria = rs.getString("avaria");
-            retorno = new Carro(id, placa, marca, modelo, km_atual, avariado, avaria);
+            int id = rs.getInt("id");
+            int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
+            Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
+            int idCarro = Integer.parseInt(rs.getString("idCarro"));
+            Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
+            LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
+            LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
+            int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
+            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String relato = rs.getString("relato");
+            retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioBD.desconectar(con);
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
@@ -100,26 +123,107 @@ public class RelatorioDAO {
         return retorno;
     }
 
-    public static Carro selecionarCarroPorPlaca(String nomePesquisa) {
-        Carro retorno = null;
+    public static Relatorio selecionarRelatorioPorMotorista(Motorista moto) throws ParseException {
+        Relatorio retorno = null;
         Connection con = RelatorioBD.conectar();
         try {
-            String sql = String.format(SELECT_POR_NOME, nomePesquisa);
+            String sql = String.format(SELECT_POR_IDMOTORISTA, moto.getId());
             ResultSet rs = con.createStatement().executeQuery(sql);
             rs.next();
-            byte id = rs.getByte("id");
-                String placa = rs.getString("placa");
-                String marca = rs.getString("marca");
-                String modelo = rs.getString("modelo");
-                int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                Boolean avariado = Boolean.parseBoolean(rs.getString("avariado"));
-                String avaria = rs.getString("avaria");
-            retorno = new Carro(id, placa, marca, modelo, km_atual, avariado, avaria);
+            int id = rs.getInt("id");
+            int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
+            Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
+            int idCarro = Integer.parseInt(rs.getString("idCarro"));
+            Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
+            LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
+            LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
+            int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
+            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String relato = rs.getString("relato");
+            retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioBD.desconectar(con);
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
         }
         return retorno;
-    }*/
+    }
+
+    public static Relatorio selecionarRelatorioPorCarro(Carro car) throws ParseException {
+        Relatorio retorno = null;
+        Connection con = RelatorioBD.conectar();
+        try {
+            String sql = String.format(SELECT_POR_IDCARRO, car.getId());
+            ResultSet rs = con.createStatement().executeQuery(sql);
+            rs.next();
+            int id = rs.getInt("id");
+            int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
+            Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
+            int idCarro = Integer.parseInt(rs.getString("idCarro"));
+            Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
+            LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
+            LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
+            int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
+            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String relato = rs.getString("relato");
+            retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
+            RelatorioBD.desconectar(con);
+        } catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+            System.exit(1);
+        }
+        return retorno;
+    }
+
+    public static Relatorio selecionarRelatorioPorData(String data) throws ParseException {
+        Relatorio retorno = null;
+        Connection con = RelatorioBD.conectar();
+        try {
+            String sql = String.format(SELECT_POR_DATA, data);
+            ResultSet rs = con.createStatement().executeQuery(sql);
+            rs.next();
+            int id = rs.getInt("id");
+            int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
+            Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
+            int idCarro = Integer.parseInt(rs.getString("idCarro"));
+            Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
+            LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
+            LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
+            int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
+            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String relato = rs.getString("relato");
+            retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
+            RelatorioBD.desconectar(con);
+        } catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+            System.exit(1);
+        }
+        return retorno;
+    }
+
+    public static Relatorio selecionarRelatorioPorAvariado(Boolean avaria) throws ParseException {
+        Relatorio retorno = null;
+        Connection con = RelatorioBD.conectar();
+        try {
+            String sql = String.format(SELECT_POR_AVARIADO, avaria);
+            ResultSet rs = con.createStatement().executeQuery(sql);
+            rs.next();
+            int id = rs.getInt("id");
+            int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
+            Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
+            int idCarro = Integer.parseInt(rs.getString("idCarro"));
+            Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
+            LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
+            LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
+            int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
+            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String relato = rs.getString("relato");
+            retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
+            RelatorioBD.desconectar(con);
+        } catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+            System.exit(1);
+        }
+        return retorno;
+    }
 }

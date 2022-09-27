@@ -1,9 +1,12 @@
 package br.com.natanaelqn.relatorio.entity;
 
+
 import java.time.LocalDate;
 
-public class Relatorio {
 
+
+public class Relatorio {
+    
     private int id;
     private Motorista motorista;
     private Carro carro;
@@ -13,11 +16,11 @@ public class Relatorio {
     private boolean avariaNoServico;
     private String relato;
 
-    public Relatorio(Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_percorrido, boolean avariaNoServico, String relato) {
+    public Relatorio(Motorista motorista, Carro carro, LocalDate dataDoServico,  int km_percorrido, boolean avariaNoServico, String relato) {
         this.motorista = motorista;
         this.carro = carro;
         this.dataDoServico = dataDoServico;
-        this.dataDoEnvio = dataDoEnvio;
+        this.dataDoEnvio = LocalDate.now();
         this.km_percorrido = km_percorrido;
         this.avariaNoServico = avariaNoServico;
         this.relato = relato;
@@ -97,7 +100,4 @@ public class Relatorio {
     public void setRelato(String relato) {
         this.relato = relato;
     }
-
-    
-    
 }
