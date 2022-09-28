@@ -85,8 +85,6 @@ public class RelatorioGUI extends javax.swing.JFrame {
         jNome = new javax.swing.JLabel();
         jMatricula = new javax.swing.JLabel();
         tNome = new javax.swing.JTextField();
-        jPlaca = new javax.swing.JLabel();
-        tPlaca = new javax.swing.JTextField();
         jMarca = new javax.swing.JLabel();
         tMarca = new javax.swing.JTextField();
         jModelo = new javax.swing.JLabel();
@@ -118,9 +116,15 @@ public class RelatorioGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
         jMotorista.setText("Motorista");
 
-        jCarro.setText("Carro");
+        jCarro.setText("Placa");
 
         jRelato.setText("Relato");
 
@@ -154,15 +158,6 @@ public class RelatorioGUI extends javax.swing.JFrame {
             }
         });
 
-        jPlaca.setText("Placa");
-
-        tPlaca.setEditable(false);
-        tPlaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tPlacaActionPerformed(evt);
-            }
-        });
-
         jMarca.setText("Marca");
 
         tMarca.setEditable(false);
@@ -188,6 +183,11 @@ public class RelatorioGUI extends javax.swing.JFrame {
         tMatricula.setEditable(false);
 
         jCancelar.setText("Cancelar");
+        jCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarActionPerformed(evt);
+            }
+        });
 
         jSalvar.setText("Salvar");
         jSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -225,19 +225,14 @@ public class RelatorioGUI extends javax.swing.JFrame {
                         .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCarro)
                             .addComponent(cCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPlaca)
-                            .addComponent(tPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jMarca)
-                            .addComponent(tMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jModelo)
-                            .addComponent(tModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 332, Short.MAX_VALUE))
+                            .addGroup(jpNovoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jMarca))
+                            .addGroup(jpNovoLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(tMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(spRelato)
                     .addGroup(jpNovoLayout.createSequentialGroup()
                         .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,19 +245,23 @@ public class RelatorioGUI extends javax.swing.JFrame {
                                     .addComponent(tNome, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jNome))
                                 .addGap(18, 18, 18)
-                                .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jMatricula)
-                                    .addComponent(tMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jDataServico)
-                                    .addComponent(tDataServico, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                    .addComponent(jAvariado)
-                                    .addComponent(tAvariado))
+                                    .addComponent(jMatricula)
+                                    .addComponent(tMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(jModelo)
+                                    .addComponent(tModelo))
                                 .addGap(18, 18, 18)
                                 .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDataEnvio)
-                                    .addComponent(tDataEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jAvariado)
+                                    .addGroup(jpNovoLayout.createSequentialGroup()
+                                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(tAvariado, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jDataServico, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tDataServico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jDataEnvio)
+                                            .addComponent(tDataEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jNovoRelatorio)
                             .addGroup(jpNovoLayout.createSequentialGroup()
                                 .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,60 +292,52 @@ public class RelatorioGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpNovoLayout.createSequentialGroup()
-                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jpNovoLayout.createSequentialGroup()
-                                .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jpNovoLayout.createSequentialGroup()
-                                        .addComponent(jMotorista)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jpNovoLayout.createSequentialGroup()
-                                        .addComponent(jNome)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(tDataServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tDataEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jpNovoLayout.createSequentialGroup()
-                                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jMatricula)
-                                            .addComponent(jDataServico)
-                                            .addComponent(jDataEnvio))
-                                        .addGap(28, 28, 28)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jpNovoLayout.createSequentialGroup()
-                                        .addComponent(jCarro)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jpNovoLayout.createSequentialGroup()
-                                        .addComponent(jMarca)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jpNovoLayout.createSequentialGroup()
-                                        .addComponent(jModelo)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jpNovoLayout.createSequentialGroup()
-                                        .addComponent(jPlaca)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jpNovoLayout.createSequentialGroup()
-                                .addComponent(jAvariado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tAvariado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
-                                .addComponent(jKmAtual)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tKmAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
-                                .addComponent(jKmPercorrido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tKmPercorrido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jMotorista)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpNovoLayout.createSequentialGroup()
+                        .addComponent(jNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tDataServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tDataEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpNovoLayout.createSequentialGroup()
+                        .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jMatricula)
+                            .addComponent(jDataServico)
+                            .addComponent(jDataEnvio))
+                        .addGap(28, 28, 28)))
+                .addGap(18, 18, 18)
+                .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpNovoLayout.createSequentialGroup()
+                        .addComponent(jCarro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
+                        .addComponent(jMarca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
+                        .addComponent(jModelo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
+                        .addComponent(jAvariado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tAvariado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
+                        .addComponent(jKmAtual)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tKmAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
+                        .addComponent(jKmPercorrido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tKmPercorrido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpNovoLayout.createSequentialGroup()
                         .addComponent(jNovasAvarias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cNovasAvarias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -358,7 +349,7 @@ public class RelatorioGUI extends javax.swing.JFrame {
                 .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCancelar)
                     .addComponent(jSalvar))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Novo Relatório ", jpNovo);
@@ -434,10 +425,6 @@ public class RelatorioGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tNomeActionPerformed
 
-    private void tPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tPlacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tPlacaActionPerformed
-
     private void cMotoristaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cMotoristaItemStateChanged
         Motorista motorista = MotoristaDAO.selecionarMotoristaPorNome(cMotorista.getSelectedItem().toString());
         tNome.setText(motorista.getNome());
@@ -448,7 +435,6 @@ public class RelatorioGUI extends javax.swing.JFrame {
 
     private void cCarroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cCarroItemStateChanged
         Carro carro = CarroDAO.selecionarCarroPorPlaca(cCarro.getSelectedItem().toString());
-        tPlaca.setText(carro.getPlaca());
         tMarca.setText(carro.getMarca());
         tModelo.setText(carro.getModelo());
         tKmAnterior.setText(String.valueOf(carro.getKm_atual()));
@@ -491,10 +477,13 @@ public class RelatorioGUI extends javax.swing.JFrame {
             String relato = tRelato.getText();
             Relatorio relatorio = new Relatorio(motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioDAO.inserir(relatorio);
+            JOptionPane.showMessageDialog(null, "Relatorio enviado!");
             carro.setKm_atual(carro.getKm_atual() + kmPercorrido);
             carro.setAvaria(relato);
             CarroDAO.alterar(carro);
-            atualiza();
+            cMotorista.setSelectedIndex(0);
+            cCarro.setSelectedIndex(0);
+            tKmPercorrido.setText("");
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Erro inesperado, tente novamente!");
         }
@@ -503,6 +492,16 @@ public class RelatorioGUI extends javax.swing.JFrame {
     private void cNovasAvariasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cNovasAvariasItemStateChanged
         //
     }//GEN-LAST:event_cNovasAvariasItemStateChanged
+
+    private void jCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarActionPerformed
+        cMotorista.setSelectedIndex(0);
+        cCarro.setSelectedIndex(0);
+        tKmPercorrido.setText("");
+    }//GEN-LAST:event_jCancelarActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        //Não implementado
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -563,7 +562,6 @@ public class RelatorioGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jNovasAvarias;
     private javax.swing.JLabel jNovoRelatorio;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel jPlaca;
     private javax.swing.JLabel jRelato;
     private javax.swing.JButton jSalvar;
     private javax.swing.JScrollPane jScrollPane1;
@@ -581,7 +579,6 @@ public class RelatorioGUI extends javax.swing.JFrame {
     private javax.swing.JTextField tMatricula;
     private javax.swing.JTextField tModelo;
     private javax.swing.JTextField tNome;
-    private javax.swing.JTextField tPlaca;
     private javax.swing.JTextArea tRelato;
     // End of variables declaration//GEN-END:variables
 }
