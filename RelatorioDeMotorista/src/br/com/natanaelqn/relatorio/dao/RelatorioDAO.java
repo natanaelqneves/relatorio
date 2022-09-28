@@ -18,13 +18,13 @@ public class RelatorioDAO {
     
     private static final String INSERIR_SQL = "Insert into relatorio "
             + "(idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato) "
-            + "values (%d, %d, '%s', '%s', %d, %b, '%s')";
+            + "values (%d, %d, '%s', '%s', %d, '%s', '%s')";
 
     private static final String REMOVER_SQL = "delete from relatorio "
             + "where id=%d";
 
     private static final String ALTERAR_SQL = "Update relatorio "
-            + "set dataDoServico='%s', kmPercorrido =%d, avariaNoServico=%b, relato='%s' where id=%d";
+            + "set dataDoServico='%s', kmPercorrido =%d, avariaNoServico='%s', relato='%s' where id=%d";
 
     private static final String SELECIONAR_SQL = "Select * from relatorio";
 
@@ -41,7 +41,7 @@ public class RelatorioDAO {
             + "where dataDoServico = '%s'";
 
     private static final String SELECT_POR_AVARIADO = "Select * from relatorio "
-            + "where avariaNoServico = %b";
+            + "where avariaNoServico = '%s'";
 
     public static void inserir(Relatorio relatorio) {
         String sql = String.format(INSERIR_SQL,
@@ -50,7 +50,7 @@ public class RelatorioDAO {
                 relatorio.getDataDoServico(),
                 relatorio.getDataDoEnvio(),
                 relatorio.getKm_percorrido(),
-                relatorio.isAvariaNoServico(),
+                relatorio.getAvariaNoServico(),
                 relatorio.getRelato());
         RelatorioBD.execute(sql, true);
     }
@@ -64,8 +64,9 @@ public class RelatorioDAO {
         String sql = String.format(ALTERAR_SQL,
                 relatorio.getDataDoServico().toString(),
                 relatorio.getKm_percorrido(),
-                relatorio.isAvariaNoServico(),
-                relatorio.getRelato());
+                relatorio.getAvariaNoServico(),
+                relatorio.getRelato(),
+                relatorio.getId());
         RelatorioBD.execute(sql, true);
     }
 
@@ -84,7 +85,7 @@ public class RelatorioDAO {
                 LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
             LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
                 int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
-                Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+                String avariaNoServico = rs.getString("avariaNoServico");
                 String relato = rs.getString("relato");
                 lista.add(new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato));
             }
@@ -111,7 +112,7 @@ public class RelatorioDAO {
             LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
             LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
             int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
-            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String avariaNoServico = rs.getString("avariaNoServico");
             String relato = rs.getString("relato");
             retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioBD.desconectar(con);
@@ -137,7 +138,7 @@ public class RelatorioDAO {
             LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
             LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
             int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
-            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String avariaNoServico = rs.getString("avariaNoServico");
             String relato = rs.getString("relato");
             retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioBD.desconectar(con);
@@ -163,7 +164,7 @@ public class RelatorioDAO {
             LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
             LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
             int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
-            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String avariaNoServico = rs.getString("avariaNoServico");
             String relato = rs.getString("relato");
             retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioBD.desconectar(con);
@@ -189,7 +190,7 @@ public class RelatorioDAO {
             LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
             LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
             int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
-            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String avariaNoServico = rs.getString("avariaNoServico");
             String relato = rs.getString("relato");
             retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioBD.desconectar(con);
@@ -215,7 +216,7 @@ public class RelatorioDAO {
             LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
             LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
             int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
-            Boolean avariaNoServico = Boolean.parseBoolean(rs.getString("avariaNoServico"));
+            String avariaNoServico = rs.getString("avariaNoServico");
             String relato = rs.getString("relato");
             retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
             RelatorioBD.desconectar(con);

@@ -3,27 +3,27 @@ package br.com.natanaelqn.relatorio.entity;
 import java.time.LocalDate;
 
 public class Relatorio {
-    
+
     private int id;
     private Motorista motorista;
     private Carro carro;
     private LocalDate dataDoServico;
     private LocalDate dataDoEnvio;
     private int km_percorrido;
-    private boolean avariaNoServico;
+    private String avariaNoServico;
     private String relato;
 
-    public Relatorio(Motorista motorista, Carro carro, LocalDate dataDoServico,  int km_percorrido, boolean avariaNoServico, String relato) {
+    public Relatorio(Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_percorrido, String avariaNoServico, String relato) {
         this.motorista = motorista;
         this.carro = carro;
         this.dataDoServico = dataDoServico;
-        this.dataDoEnvio = LocalDate.now();
+        this.dataDoEnvio = dataDoEnvio;
         this.km_percorrido = km_percorrido;
         this.avariaNoServico = avariaNoServico;
         this.relato = relato;
     }
 
-    public Relatorio(int id, Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_percorrido, boolean avariaNoServico, String relato) {
+    public Relatorio(int id, Motorista motorista, Carro carro, LocalDate dataDoServico, LocalDate dataDoEnvio, int km_percorrido, String avariaNoServico, String relato) {
         this.id = id;
         this.motorista = motorista;
         this.carro = carro;
@@ -82,11 +82,11 @@ public class Relatorio {
         this.km_percorrido = km_percorrido;
     }
 
-    public boolean isAvariaNoServico() {
+    public String getAvariaNoServico() {
         return avariaNoServico;
     }
 
-    public void setAvariaNoServico(boolean avariaNoServico) {
+    public void setAvariaNoServico(String avariaNoServico) {
         this.avariaNoServico = avariaNoServico;
     }
 

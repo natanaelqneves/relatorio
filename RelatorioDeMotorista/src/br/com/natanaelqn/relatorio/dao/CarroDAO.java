@@ -12,13 +12,13 @@ public class CarroDAO {
     
     private static final String INSERIR_SQL = "Insert into carro "
             + "(placa, marca, modelo, km_atual, avariado, avaria) "
-            + "values ('%s', '%s', '%s', %d, %d, '%s')";
+            + "values ('%s', '%s', '%s', %d, '%s', '%s')";
     
     private static final String REMOVER_SQL = "delete from carro "
             + "where id=%d";
     
     private static final String ALTERAR_SQL = "Update carro "
-            + "set km_atual =%d, avariado=%b, avaria='%s' where id=%d";
+            + "set km_atual =%d, avariado='%s', avaria='%s' where id=%d";
     
     private static final String SELECIONAR_SQL = "Select * from carro";
     
@@ -48,7 +48,8 @@ public class CarroDAO {
         String sql = String.format(ALTERAR_SQL,
                 carro.getKm_atual(),
                 carro.getAvariado(),
-                carro.getAvaria());
+                carro.getAvaria(),
+                carro.getId());
         RelatorioBD.execute(sql, true);
     }
 
@@ -64,7 +65,7 @@ public class CarroDAO {
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
                 int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                byte avariado = Byte.parseByte(rs.getString("avariado"));
+                String avariado = rs.getString("avariado");
                 String avaria = rs.getString("avaria");
                 lista.add(new Carro(id, placa, marca, modelo, km_atual, avariado, avaria));
             }
@@ -89,7 +90,7 @@ public class CarroDAO {
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
                 int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                byte avariado = Byte.parseByte(rs.getString("avariado"));
+                String avariado = rs.getString("avariado");
                 String avaria = rs.getString("avaria");
             retorno = new Carro(id, placa, marca, modelo, km_atual, avariado, avaria);
             RelatorioBD.desconectar(con);
@@ -112,7 +113,7 @@ public class CarroDAO {
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
                 int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                byte avariado = Byte.parseByte(rs.getString("avariado"));
+                String avariado = rs.getString("avariado");
                 String avaria = rs.getString("avaria");
             retorno = new Carro(id, placa, marca, modelo, km_atual, avariado, avaria);
             RelatorioBD.desconectar(con);
