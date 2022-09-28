@@ -1,9 +1,6 @@
 package br.com.natanaelqn.relatorio.entity;
 
-
 import java.time.LocalDate;
-
-
 
 public class Relatorio {
     

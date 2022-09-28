@@ -77,8 +77,8 @@ public class RelatorioBD {
         execute(con, sql);
         sql = "Insert into carro (placa, marca, modelo, km_atual, avariado) values ('AAA1234', 'Nissan', 'Frontier', 255, 0)";
         execute(con, sql);
-        sql = "Insert into carro (placa, marca, modelo, km_atual, avariado) values ('BBB5678', 'Toyota', 'Hilux', 331, 0)";*/
-        execute(con, sql);
+        sql = "Insert into carro (placa, marca, modelo, km_atual, avariado) values ('BBB5678', 'Toyota', 'Hilux', 331, 0)";
+        execute(con, sql);*/
         sql = "Insert into relatorio (idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico) values (1, 1, '2022-09-25', '2022-09-26', 55, 0)";
         execute(con, sql);
         sql = "Insert into relatorio (idMotorista, idCarro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico) values (1, 1, '2022-09-27', '2022-09-27', 45, 0)";

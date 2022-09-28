@@ -12,7 +12,7 @@ public class CarroDAO {
     
     private static final String INSERIR_SQL = "Insert into carro "
             + "(placa, marca, modelo, km_atual, avariado, avaria) "
-            + "values ('%s', '%s', '%s', %d, %b, '%s')";
+            + "values ('%s', '%s', '%s', %d, %d, '%s')";
     
     private static final String REMOVER_SQL = "delete from carro "
             + "where id=%d";
@@ -25,8 +25,8 @@ public class CarroDAO {
     private static final String SELECT_POR_ID = "Select * from carro "
             + "where id = %d";
     
-    private static final String SELECT_POR_NOME = "Select * from carro "
-            + "where nome = '%s'";
+    private static final String SELECT_POR_PLACA = "Select * from carro "
+            + "where placa = '%s'";
     
      public static void inserir(Carro carro) {
         String sql = String.format(INSERIR_SQL, 
@@ -34,7 +34,7 @@ public class CarroDAO {
                 carro.getMarca(),
                 carro.getModelo(),
                 carro.getKm_atual(),
-                carro.isAvariado(),
+                carro.getAvariado(),
                 carro.getAvaria());
         RelatorioBD.execute(sql, true);
     }
@@ -47,7 +47,7 @@ public class CarroDAO {
     public static void alterar(Carro carro) {
         String sql = String.format(ALTERAR_SQL,
                 carro.getKm_atual(),
-                carro.isAvariado(),
+                carro.getAvariado(),
                 carro.getAvaria());
         RelatorioBD.execute(sql, true);
     }
@@ -64,7 +64,7 @@ public class CarroDAO {
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
                 int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                Boolean avariado = Boolean.parseBoolean(rs.getString("avariado"));
+                byte avariado = Byte.parseByte(rs.getString("avariado"));
                 String avaria = rs.getString("avaria");
                 lista.add(new Carro(id, placa, marca, modelo, km_atual, avariado, avaria));
             }
@@ -89,7 +89,7 @@ public class CarroDAO {
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
                 int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                Boolean avariado = Boolean.parseBoolean(rs.getString("avariado"));
+                byte avariado = Byte.parseByte(rs.getString("avariado"));
                 String avaria = rs.getString("avaria");
             retorno = new Carro(id, placa, marca, modelo, km_atual, avariado, avaria);
             RelatorioBD.desconectar(con);
@@ -104,7 +104,7 @@ public class CarroDAO {
         Carro retorno = null;
         Connection con = RelatorioBD.conectar();
         try {
-            String sql = String.format(SELECT_POR_NOME, nomePesquisa);
+            String sql = String.format(SELECT_POR_PLACA, nomePesquisa);
             ResultSet rs = con.createStatement().executeQuery(sql);
             rs.next();
             byte id = rs.getByte("id");
@@ -112,7 +112,7 @@ public class CarroDAO {
                 String marca = rs.getString("marca");
                 String modelo = rs.getString("modelo");
                 int km_atual = Integer.parseInt(rs.getString("km_atual"));
-                Boolean avariado = Boolean.parseBoolean(rs.getString("avariado"));
+                byte avariado = Byte.parseByte(rs.getString("avariado"));
                 String avaria = rs.getString("avaria");
             retorno = new Carro(id, placa, marca, modelo, km_atual, avariado, avaria);
             RelatorioBD.desconectar(con);
