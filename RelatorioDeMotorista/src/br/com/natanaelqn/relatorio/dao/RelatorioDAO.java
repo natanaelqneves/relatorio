@@ -123,30 +123,30 @@ public class RelatorioDAO {
         return retorno;
     }
 
-    public static Relatorio selecionarRelatorioPorMotorista(Motorista moto) throws ParseException {
-        Relatorio retorno = null;
+    public static List<Relatorio> selecionarRelatoriosPorMotorista(Motorista moto) throws ParseException {
+        List<Relatorio> lista = new ArrayList<>();
         Connection con = RelatorioBD.conectar();
         try {
             String sql = String.format(SELECT_POR_IDMOTORISTA, moto.getId());
-            ResultSet rs = con.createStatement().executeQuery(sql);
-            rs.next();
-            int id = rs.getInt("id");
-            int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
-            Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
-            int idCarro = Integer.parseInt(rs.getString("idCarro"));
-            Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
-            LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
+            ResultSet rs = con.createStatement()
+                    .executeQuery(sql);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int idMotorista = Integer.parseInt(rs.getString("idMotorista"));
+                Motorista motorista = MotoristaDAO.selecionarMotoristaPorId(idMotorista);
+                int idCarro = Integer.parseInt(rs.getString("idCarro"));
+                Carro carro = CarroDAO.selecionarCarroPorId(idCarro);
+                LocalDate dataDoServico = LocalDate.parse(rs.getString("dataDoServico"));
             LocalDate dataDoEnvio = LocalDate.parse(rs.getString("dataDoEnvio"));
-            int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
-            String avariaNoServico = rs.getString("avariaNoServico");
-            String relato = rs.getString("relato");
-            retorno = new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
+                int kmPercorrido = Integer.parseInt(rs.getString("kmPercorrido"));
+                String avariaNoServico = rs.getString("avariaNoServico");
+                String relato = rs.getString("relato");
+                lista.add(new Relatorio(id, motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato));
+            }
             RelatorioBD.desconectar(con);
         } catch (SQLException e) {
-            System.out.println(e.getLocalizedMessage());
-            System.exit(1);
         }
-        return retorno;
+        return lista;
     }
 
     public static Relatorio selecionarRelatorioPorCarro(Carro car) throws ParseException {

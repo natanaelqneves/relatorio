@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class MotoristaDAO {
     
@@ -27,6 +28,9 @@ public class MotoristaDAO {
     
     private static final String SELECT_POR_NOME = "Select * from motorista "
             + "where nome = '%s'";
+    
+    private static final String SELECT_POR_LOGIN = "Select * from motorista "
+            + "where nomeDeUsuario = '%s' and senha='%s'";
     
      public static void inserir(Motorista motorista) {
         String sql = String.format(INSERIR_SQL, 
@@ -104,6 +108,26 @@ public class MotoristaDAO {
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
             System.exit(1);
+        }
+        return retorno;
+    }
+    
+    public static Motorista selecionarMotoristaPorLogin(String login, String senha) {
+        Motorista retorno = null;
+        Connection con = RelatorioBD.conectar();
+        try {
+            String sql = String.format(SELECT_POR_LOGIN, login, senha);
+            ResultSet rs = con.createStatement().executeQuery(sql);
+            rs.next();
+            byte id = rs.getByte("id");
+                String matricula = rs.getString("matricula");
+                String nome = rs.getString("nome");
+                String nomeDeUsuario = rs.getString("nomeDeUsuario");
+                String senhaDoUsuario = rs.getString("senha");
+            retorno = new Motorista(id, matricula, nome, nomeDeUsuario, senhaDoUsuario);
+            RelatorioBD.desconectar(con);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Usuário ou/e Senha incorreto(s)!");
         }
         return retorno;
     }
