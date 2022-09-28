@@ -10,22 +10,24 @@ import br.com.natanaelqn.relatorio.entity.Relatorio;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class RelatorioGUI extends javax.swing.JFrame {
 
     public static final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    
+
     public RelatorioGUI() throws ParseException {
-        RelatorioBD.inicializarBD();
+        //RelatorioBD.inicializarBD();
         initComponents();
         atualiza();
         popularCombos();
     }
-    
+
     private void atualiza() throws ParseException {
         String[] cposFigurinha = {"Id", "IdMotorista", "IdCarro.", "Data do Serviço", "Data do Envio", "Km Percorrido", "Novas Avarias", "Relato"};
         List<Relatorio> relatorios = RelatorioDAO.selecionarTodos();
@@ -48,14 +50,14 @@ public class RelatorioGUI extends javax.swing.JFrame {
                 dadosRelatorios, cposFigurinha);
         jtRelatorios.setModel(modeloRel);
     }
-    
+
     private void popularCombos() {
         cMotorista.removeAllItems();
-        List <Motorista> motoristas = MotoristaDAO.selecionarTodos();
+        List<Motorista> motoristas = MotoristaDAO.selecionarTodos();
         for (Motorista motorista : motoristas) {
             cMotorista.addItem(motorista.getNome());
         }
-         cCarro.removeAllItems();
+        cCarro.removeAllItems();
         List<Carro> carros = CarroDAO.selecionarTodos();
         for (Carro carro : carros) {
             cCarro.addItem(carro.getPlaca());
@@ -98,15 +100,14 @@ public class RelatorioGUI extends javax.swing.JFrame {
         spRelato = new javax.swing.JScrollPane();
         tRelato = new javax.swing.JTextArea();
         tMatricula = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jCancelar = new javax.swing.JButton();
+        jSalvar = new javax.swing.JButton();
         tDataServico = new javax.swing.JFormattedTextField();
         tDataEnvio = new javax.swing.JFormattedTextField();
         jAvariado = new javax.swing.JLabel();
         tAvariado = new javax.swing.JTextField();
         jNovasAvarias = new javax.swing.JLabel();
         cNovasAvarias = new javax.swing.JComboBox<>();
-        jpEditar = new javax.swing.JPanel();
         jpPesquisar = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -186,12 +187,12 @@ public class RelatorioGUI extends javax.swing.JFrame {
 
         tMatricula.setEditable(false);
 
-        jButton1.setText("Cancelar");
+        jCancelar.setText("Cancelar");
 
-        jButton2.setText("Salvar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jSalvar.setText("Salvar");
+        jSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jSalvarActionPerformed(evt);
             }
         });
 
@@ -279,9 +280,9 @@ public class RelatorioGUI extends javax.swing.JFrame {
                         .addContainerGap(26, Short.MAX_VALUE))
                     .addGroup(jpNovoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(jSalvar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(jCancelar)
                         .addGap(28, 28, 28))))
         );
         jpNovoLayout.setVerticalGroup(
@@ -355,25 +356,12 @@ public class RelatorioGUI extends javax.swing.JFrame {
                 .addComponent(spRelato, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(jpNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(165, Short.MAX_VALUE))
+                    .addComponent(jCancelar)
+                    .addComponent(jSalvar))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Novo ", jpNovo);
-
-        javax.swing.GroupLayout jpEditarLayout = new javax.swing.GroupLayout(jpEditar);
-        jpEditar.setLayout(jpEditarLayout);
-        jpEditarLayout.setHorizontalGroup(
-            jpEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 794, Short.MAX_VALUE)
-        );
-        jpEditarLayout.setVerticalGroup(
-            jpEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Editar", jpEditar);
+        jTabbedPane1.addTab("Novo Relatório ", jpNovo);
 
         jtRelatorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -395,7 +383,7 @@ public class RelatorioGUI extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -418,7 +406,7 @@ public class RelatorioGUI extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Pesquisar", jpPesquisar);
+        jTabbedPane1.addTab("Relatorios Enviados", jpPesquisar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -464,41 +452,56 @@ public class RelatorioGUI extends javax.swing.JFrame {
         tMarca.setText(carro.getMarca());
         tModelo.setText(carro.getModelo());
         tKmAnterior.setText(String.valueOf(carro.getKm_atual()));
-        if(carro.getAvariado().equalsIgnoreCase("Sim")){
+        if (carro.getAvariado().equalsIgnoreCase("Sim")) {
             tAvariado.setText("Levar a Oficina");
+            cNovasAvarias.setEnabled(false);
+            tKmPercorrido.setEnabled(false);
+            tRelato.setEnabled(false);
+            jSalvar.setEnabled(false);
         } else {
             tAvariado.setText("Pronto");
+            cNovasAvarias.setEnabled(true);
+            tKmPercorrido.setEnabled(true);
+            tRelato.setEnabled(true);
+            jSalvar.setEnabled(true);
         }
     }//GEN-LAST:event_cCarroItemStateChanged
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Motorista motorista = MotoristaDAO.selecionarMotoristaPorNome(cMotorista.getSelectedItem().toString());
-        Carro carro = CarroDAO.selecionarCarroPorPlaca(cCarro.getSelectedItem().toString());
-        LocalDate dataDoServico = LocalDate.parse(tDataServico.getText(), formato);
-        LocalDate dataDoEnvio = LocalDate.parse(tDataEnvio.getText(), formato);
-        String avariaNoServico;
-        if(cNovasAvarias.getSelectedItem().toString().equalsIgnoreCase("SIM")){
-            avariaNoServico = "Sim";
-            carro.setAvariado(avariaNoServico);
-        } else {
-            avariaNoServico = "Não";
-        }
-        int kmPercorrido = Integer.parseInt(tKmPercorrido.getText());
-        String relato = tRelato.getText();
-        Relatorio relatorio = new Relatorio(motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
-        RelatorioDAO.inserir(relatorio);
-        carro.setKm_atual(carro.getKm_atual() + kmPercorrido);
-        carro.setAvaria(relato);
-        CarroDAO.alterar(carro);
-        try {
+    private void jSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvarActionPerformed
+        try {                                        
+            int kmPercorrido = 0;
+            LocalDate dataDoServico;
+            LocalDate dataDoEnvio;
+            Motorista motorista = MotoristaDAO.selecionarMotoristaPorNome(cMotorista.getSelectedItem().toString());
+            Carro carro = CarroDAO.selecionarCarroPorPlaca(cCarro.getSelectedItem().toString());
+            dataDoServico = LocalDate.parse(tDataServico.getText(), formato);
+            dataDoEnvio = LocalDate.parse(tDataEnvio.getText(), formato);
+            String avariaNoServico;
+            if (cNovasAvarias.getSelectedItem().toString().equalsIgnoreCase("SIM")) {
+                avariaNoServico = "Sim";
+                carro.setAvariado(avariaNoServico);
+            } else {
+                avariaNoServico = "Não";
+            }
+            try {
+                kmPercorrido = Integer.parseInt(tKmPercorrido.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Dado inválido no campo 'Km Final'!");
+            }
+            String relato = tRelato.getText();
+            Relatorio relatorio = new Relatorio(motorista, carro, dataDoServico, dataDoEnvio, kmPercorrido, avariaNoServico, relato);
+            RelatorioDAO.inserir(relatorio);
+            carro.setKm_atual(carro.getKm_atual() + kmPercorrido);
+            carro.setAvaria(relato);
+            CarroDAO.alterar(carro);
             atualiza();
-        } catch (ParseException ex) {
-            Logger.getLogger(RelatorioGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Erro inesperado, tente novamente!");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jSalvarActionPerformed
 
     private void cNovasAvariasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cNovasAvariasItemStateChanged
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_cNovasAvariasItemStateChanged
 
     /**
@@ -545,8 +548,7 @@ public class RelatorioGUI extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cMotorista;
     private javax.swing.JComboBox<String> cNovasAvarias;
     private javax.swing.JLabel jAvariado;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jCancelar;
     private javax.swing.JLabel jCarro;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jDataEnvio;
@@ -563,9 +565,9 @@ public class RelatorioGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel jPlaca;
     private javax.swing.JLabel jRelato;
+    private javax.swing.JButton jSalvar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JPanel jpEditar;
     private javax.swing.JPanel jpNovo;
     private javax.swing.JPanel jpPesquisar;
     private javax.swing.JTable jtRelatorios;
