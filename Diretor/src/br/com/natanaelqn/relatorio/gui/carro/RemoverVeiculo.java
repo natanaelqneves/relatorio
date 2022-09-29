@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.com.natanaelqn.relatorio.gui.carro;
 
 import br.com.natanaelqn.relatorio.dao.CarroDAO;
@@ -10,19 +6,11 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
-/**
- *
- * @author natan
- */
 public class RemoverVeiculo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdicionarVeiculo
-     */
     public RemoverVeiculo() throws ParseException {
         initComponents();
         atualizaCarros();
@@ -197,6 +185,7 @@ public class RemoverVeiculo extends javax.swing.JFrame {
             Carro carro = carroSelecionado();
             CarroDAO.remover(carro);
             atualizaCarros();
+            JOptionPane.showMessageDialog(null, "Carro " + carro.getModelo() + " removido!");
         } catch (ParseException ex) {
             Logger.getLogger(RemoverVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }

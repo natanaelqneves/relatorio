@@ -66,12 +66,12 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jCarro" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tPlacaInserir" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="tModeloInserir" min="-2" pref="150" max="-2" attributes="0"/>
+                                          <Component id="tMatricula" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="tLogin" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
@@ -80,26 +80,15 @@
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jAvariado" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="tMarcaInserir" max="32767" attributes="0"/>
-                                                  <Component id="cAvadiadoInserir" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Component id="tNome" min="-2" pref="150" max="-2" attributes="0"/>
+                                                  <Component id="tSenha" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
                                   </Group>
                                   <Component id="jModelo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jKmAtual" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tKmAtualInserir" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lAvaria" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tAvariaInserir" min="-2" pref="224" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                       <Component id="jSalvarInserir" min="-2" pref="113" max="-2" attributes="0"/>
@@ -125,8 +114,8 @@
                               <Component id="jMarca" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="tMarcaInserir" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tPlacaInserir" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tMatricula" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -136,24 +125,11 @@
                           <Component id="jAvariado" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="tModeloInserir" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cAvadiadoInserir" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jKmAtual" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tKmAtualInserir" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="lAvaria" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tAvariaInserir" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="tLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jSalvarInserir" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jCancelarInserir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -166,26 +142,26 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jCarro">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Placa"/>
+                <Property name="text" type="java.lang.String" value="Matricula"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jMarca">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Marca"/>
+                <Property name="text" type="java.lang.String" value="Nome"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tMarcaInserir">
+            <Component class="javax.swing.JTextField" name="tNome">
             </Component>
-            <Component class="javax.swing.JTextField" name="tModeloInserir">
+            <Component class="javax.swing.JTextField" name="tLogin">
             </Component>
             <Component class="javax.swing.JLabel" name="jModelo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Modelo"/>
+                <Property name="text" type="java.lang.String" value="Login"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jAvariado">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Avariado"/>
+                <Property name="text" type="java.lang.String" value="Senha"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
@@ -209,34 +185,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCancelarInserirActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="tKmAtualInserir">
+            <Component class="javax.swing.JTextField" name="tMatricula">
             </Component>
-            <Component class="javax.swing.JLabel" name="jKmAtual">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Km Atual"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tPlacaInserir">
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cAvadiadoInserir">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="N&#xc2;O"/>
-                    <StringItem index="1" value="SIM"/>
-                  </StringArray>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lAvaria">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Avaria"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="tAvariaInserir">
+            <Component class="javax.swing.JTextField" name="tSenha">
             </Component>
           </SubComponents>
         </Container>

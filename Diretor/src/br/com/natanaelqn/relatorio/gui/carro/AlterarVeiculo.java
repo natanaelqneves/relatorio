@@ -1,23 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.com.natanaelqn.relatorio.gui.carro;
 
 import br.com.natanaelqn.relatorio.dao.CarroDAO;
 import br.com.natanaelqn.relatorio.entity.Carro;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author natan
- */
+
 public class AlterarVeiculo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdicionarVeiculo
-     */
     public AlterarVeiculo() {
         initComponents();
         popularCombos();
@@ -37,16 +28,11 @@ public class AlterarVeiculo extends javax.swing.JFrame {
     
     private void atualiza(){
         Carro carro = CarroDAO.selecionarCarroPorPlaca(cCarro.getSelectedItem().toString());
-        tPlacaAlterar.setText(carro.getPlaca());
         tMarcaAlterar.setText(carro.getMarca());
         tModeloAlterar.setText(carro.getModelo());
         tKmAtualAlterar.setText(String.valueOf(carro.getKm_atual()));
         cAvariadoAlterar.setSelectedItem(carro.getAvariado());
-        if (carro.getAvariado().equalsIgnoreCase("Sim")) {
-            tAvariaAlterar.setText("Levar a Oficina");
-        } else {
-            tAvariaAlterar.setText("Pronto");
-        }
+        tAvariaAlterar.setText(carro.getAvaria());
     }
 
     /**
@@ -60,7 +46,6 @@ public class AlterarVeiculo extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jpInserirVeiculo = new javax.swing.JPanel();
-        jCarro = new javax.swing.JLabel();
         jMarca = new javax.swing.JLabel();
         tMarcaAlterar = new javax.swing.JTextField();
         tModeloAlterar = new javax.swing.JTextField();
@@ -71,7 +56,6 @@ public class AlterarVeiculo extends javax.swing.JFrame {
         jCancelarAlterar = new javax.swing.JButton();
         tKmAtualAlterar = new javax.swing.JTextField();
         jKmAtual = new javax.swing.JLabel();
-        tPlacaAlterar = new javax.swing.JTextField();
         cAvariadoAlterar = new javax.swing.JComboBox<>();
         lAvaria = new javax.swing.JLabel();
         tAvariaAlterar = new javax.swing.JTextField();
@@ -85,8 +69,6 @@ public class AlterarVeiculo extends javax.swing.JFrame {
                 jTabbedPane1MouseClicked(evt);
             }
         });
-
-        jCarro.setText("Placa");
 
         jMarca.setText("Marca");
 
@@ -145,30 +127,29 @@ public class AlterarVeiculo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jAvariado)
-                                    .addComponent(cAvariadoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lAvaria)
-                                    .addComponent(tAvariaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cAvariadoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jMarca)
-                                    .addComponent(tMarcaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addGap(171, 171, 171)
                                 .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tModeloAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jModelo)
-                                    .addComponent(jCarro)
-                                    .addComponent(tPlacaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jModelo)))))
                     .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
-                    .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(cCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)))
+                            .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lAvaria)
+                                    .addComponent(tAvariaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jMarca)
+                            .addComponent(tMarcaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         jpInserirVeiculoLayout.setVerticalGroup(
@@ -177,15 +158,16 @@ public class AlterarVeiculo extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInserirVeiculoLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tPlacaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jCarro)
-                        .addComponent(jLabel2)))
+                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInserirVeiculoLayout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addComponent(cCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2))
+                    .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
+                        .addComponent(jMarca)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tMarcaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
@@ -193,24 +175,19 @@ public class AlterarVeiculo extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(tModeloAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
-                        .addComponent(jMarca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tMarcaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
-                            .addComponent(jKmAtual)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tKmAtualAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInserirVeiculoLayout.createSequentialGroup()
-                            .addComponent(jAvariado)
-                            .addGap(6, 6, 6)
-                            .addComponent(cAvariadoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
                         .addComponent(lAvaria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tAvariaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpInserirVeiculoLayout.createSequentialGroup()
+                        .addComponent(jKmAtual)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tKmAtualAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpInserirVeiculoLayout.createSequentialGroup()
+                        .addComponent(jAvariado)
+                        .addGap(6, 6, 6)
+                        .addComponent(cAvariadoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addGroup(jpInserirVeiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jAlterar)
@@ -253,15 +230,22 @@ public class AlterarVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlterarActionPerformed
+        try {
         Carro carro = CarroDAO.selecionarCarroPorPlaca(cCarro.getSelectedItem().toString());
-        carro.setPlaca(tPlacaAlterar.getText());
         carro.setMarca(tMarcaAlterar.getText());
         carro.setModelo(tModeloAlterar.getText());
         carro.setKm_atual(Integer.parseInt(tKmAtualAlterar.getText()));
         carro.setAvariado(cAvariadoAlterar.getSelectedItem().toString());
-        carro.setAvaria(tAvariaAlterar.getText());
+        if(carro.getAvariado().equalsIgnoreCase("Sim")){
+        carro.setAvaria("Na Oficina");    
+        } else {
+        carro.setAvaria("Pronto");        
+        }
         CarroDAO.alterar(carro);     
         atualiza();
+        JOptionPane.showMessageDialog(null, "Alterações efetuadas");
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jAlterarActionPerformed
 
     private void cCarroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cCarroItemStateChanged
@@ -310,7 +294,6 @@ public class AlterarVeiculo extends javax.swing.JFrame {
     private javax.swing.JButton jAlterar;
     private javax.swing.JLabel jAvariado;
     private javax.swing.JButton jCancelarAlterar;
-    private javax.swing.JLabel jCarro;
     private javax.swing.JLabel jKmAtual;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -323,6 +306,5 @@ public class AlterarVeiculo extends javax.swing.JFrame {
     private javax.swing.JTextField tKmAtualAlterar;
     private javax.swing.JTextField tMarcaAlterar;
     private javax.swing.JTextField tModeloAlterar;
-    private javax.swing.JTextField tPlacaAlterar;
     // End of variables declaration//GEN-END:variables
 }

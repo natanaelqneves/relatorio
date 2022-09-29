@@ -11,7 +11,7 @@ public class RelatorioBD {
         String sql;
         Connection con = conectar();
         //DROP DE TABELAS, CASO EXISTAM
-       sql = "Drop table if exists motorista";
+        sql = "Drop table if exists motorista";
         execute(con, sql);
         sql = "Drop table if exists diretor";
         execute(con, sql);
@@ -68,7 +68,7 @@ public class RelatorioBD {
         execute(con, sql);
 
         //INSERIR INTORMAÇÕES DAS ENTIDADES
-       sql = "Insert into diretor (matricula, nome, nomeDeUsuario, senha) values ('2022001', 'Renan', 'renan', '333444')";
+        sql = "Insert into diretor (matricula, nome, nomeDeUsuario, senha) values ('2022001', 'Administrador', 'admin', '123456')";
         execute(con, sql);
         sql = "Insert into motorista (matricula, nome, nomeDeUsuario, senha) values ('2022002', 'Natan', 'natanael', '222333')";
         execute(con, sql);

@@ -1,25 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.com.natanaelqn.relatorio.gui.carro;
 
 import br.com.natanaelqn.relatorio.dao.CarroDAO;
 import br.com.natanaelqn.relatorio.entity.Carro;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author natan
- */
 public class AdicionarVeiculo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdicionarVeiculo
-     */
     public AdicionarVeiculo() {
         initComponents();
     }
-    
+
     private void limpaDados() {
         tPlacaInserir.setText("");
         tMarcaInserir.setText("");
@@ -210,15 +200,20 @@ public class AdicionarVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jSalvarInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalvarInserirActionPerformed
-        String placa = tPlacaInserir.getText();
-        String marca = tMarcaInserir.getText();
-        String modelo = tModeloInserir.getText();
-        int kmAtual = Integer.parseInt(tKmAtualInserir.getText());
-        String avariado = cAvadiadoInserir.getSelectedItem().toString();
-        String avaria = tAvariaInserir.getText();
-        Carro carro = new Carro(placa, marca, modelo, kmAtual, avariado, avaria);
-        CarroDAO.inserir(carro);     
-        limpaDados();
+        try {
+            String placa = tPlacaInserir.getText();
+            String marca = tMarcaInserir.getText();
+            String modelo = tModeloInserir.getText();
+            int kmAtual = Integer.parseInt(tKmAtualInserir.getText());
+            String avariado = cAvadiadoInserir.getSelectedItem().toString();
+            String avaria = tAvariaInserir.getText();
+            Carro carro = new Carro(placa, marca, modelo, kmAtual, avariado, avaria);
+            CarroDAO.inserir(carro);
+            limpaDados();
+            JOptionPane.showMessageDialog(null, "Carro " + carro.getModelo() + " adicionado!");
+        } catch (Exception e) {
+        }
+
     }//GEN-LAST:event_jSalvarInserirActionPerformed
 
     /**

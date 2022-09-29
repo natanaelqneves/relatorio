@@ -1,75 +1,60 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package br.com.natanaelqn.relatorio.gui.motoristas;
 
-import br.com.natanaelqn.relatorio.gui.carro.*;
-import br.com.natanaelqn.relatorio.dao.CarroDAO;
-import br.com.natanaelqn.relatorio.entity.Carro;
+import br.com.natanaelqn.relatorio.dao.MotoristaDAO;
+import br.com.natanaelqn.relatorio.entity.Motorista;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
-/**
- *
- * @author natan
- */
 public class RemoverMotorista extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdicionarVeiculo
-     */
     public RemoverMotorista() throws ParseException {
         initComponents();
-        atualizaCarros();
+        atualizaMotoristas();
     }
-    
-    private void atualizaCarros() throws ParseException {
-        String[] camposCarro = {"Id", "Placa", "Marca,", "Modelo"};
-        List<Carro> carros = CarroDAO.selecionarTodos();
-        String[][] dadosCarros;
-        dadosCarros = new String[carros.size()][4];
+
+    private void atualizaMotoristas() throws ParseException {
+        String[] camposMotorista = {"Id", "Matricula", "Nome,"};
+        List<Motorista> motoristas = MotoristaDAO.selecionarTodos();
+        String[][] dadosMotoristas;
+        dadosMotoristas = new String[motoristas.size()][3];
         int posicao = 0;
-        for (Carro carro : carros) {
-            String[] umCarro = new String[8];
-            umCarro[0] = String.valueOf(carro.getId());
-            umCarro[1] = carro.getPlaca();
-            umCarro[2] = carro.getMarca();
-            umCarro[3] = carro.getModelo();
-            
-            dadosCarros[posicao++] = umCarro;
+        for (Motorista motorista : motoristas) {
+            String[] umMotorista = new String[3];
+            umMotorista[0] = String.valueOf(motorista.getId());
+            umMotorista[1] = motorista.getMatricula();
+            umMotorista[2] = motorista.getNome();
+            dadosMotoristas[posicao++] = umMotorista;
         }
-        DefaultTableModel modeloCarro = new DefaultTableModel(
-                dadosCarros, camposCarro);
-        tCarros.setModel(modeloCarro);
+        DefaultTableModel modeloMotorista = new DefaultTableModel(
+                dadosMotoristas, camposMotorista);
+        tMotoristas.setModel(modeloMotorista);
     }
-    
-    private void selecionaCarro() {
-        int selecionado = tCarros.getSelectedRow();
+
+    private void selecionaMotorista() {
+        int selecionado = tMotoristas.getSelectedRow();
         if (selecionado >= 0) {
-            String idString = (String) tCarros.getValueAt(
+            String idString = (String) tMotoristas.getValueAt(
                     selecionado, 0);
+        }
     }
-    }
-    
-    public Carro carroSelecionado() {
-      Carro carro = null;
+
+    public Motorista motoristaSelecionado() {
+        Motorista motorista = null;
         int id = 0;
-        int selecionado = tCarros.getSelectedRow();
+        int selecionado = tMotoristas.getSelectedRow();
         if (selecionado >= 0) {
-            String idString = (String) tCarros.getValueAt(
+            String idString = (String) tMotoristas.getValueAt(
                     selecionado, 0);
             id = Integer.parseInt(idString);
         }
-        carro = CarroDAO.selecionarCarroPorId(id);
-        return carro;
+        motorista = MotoristaDAO.selecionarMotoristaPorId(id);
+        return motorista;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,7 +69,7 @@ public class RemoverMotorista extends javax.swing.JFrame {
         jRemover = new javax.swing.JButton();
         jCancelarRemover = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tCarros = new javax.swing.JTable();
+        tMotoristas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -110,7 +95,7 @@ public class RemoverMotorista extends javax.swing.JFrame {
             }
         });
 
-        tCarros.setModel(new javax.swing.table.DefaultTableModel(
+        tMotoristas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -121,12 +106,12 @@ public class RemoverMotorista extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tCarros.addMouseListener(new java.awt.event.MouseAdapter() {
+        tMotoristas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tCarrosMouseClicked(evt);
+                tMotoristasMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tCarros);
+        jScrollPane1.setViewportView(tMotoristas);
 
         javax.swing.GroupLayout jpRemoverVeiculoLayout = new javax.swing.GroupLayout(jpRemoverVeiculo);
         jpRemoverVeiculo.setLayout(jpRemoverVeiculoLayout);
@@ -155,7 +140,7 @@ public class RemoverMotorista extends javax.swing.JFrame {
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Remover Veiculo", jpRemoverVeiculo);
+        jTabbedPane1.addTab("Remover Motorista", jpRemoverVeiculo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,7 +162,7 @@ public class RemoverMotorista extends javax.swing.JFrame {
 
     private void jCancelarRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarRemoverActionPerformed
         try {
-            atualizaCarros();
+            atualizaMotoristas();
             dispose();
         } catch (ParseException ex) {
             Logger.getLogger(RemoverMotorista.class.getName()).log(Level.SEVERE, null, ex);
@@ -185,27 +170,23 @@ public class RemoverMotorista extends javax.swing.JFrame {
     }//GEN-LAST:event_jCancelarRemoverActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        /*try {
-            atualizaRelatoriosEnviados();
-            atualizaRelatoriosRecebidos();
-        } catch (ParseException ex) {
-            Logger.getLogger(DiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        //Não implementado
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoverActionPerformed
         try {
-            Carro carro = carroSelecionado();
-            CarroDAO.remover(carro);
-            atualizaCarros();
+            Motorista motorista = motoristaSelecionado();
+            MotoristaDAO.remover(motorista);
+            atualizaMotoristas();
+            JOptionPane.showMessageDialog(null, "Motorista " + motorista.getNome() + " removido!");
         } catch (ParseException ex) {
             Logger.getLogger(RemoverMotorista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jRemoverActionPerformed
 
-    private void tCarrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tCarrosMouseClicked
-        selecionaCarro();
-    }//GEN-LAST:event_tCarrosMouseClicked
+    private void tMotoristasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tMotoristasMouseClicked
+        selecionaMotorista();
+    }//GEN-LAST:event_tMotoristasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -267,6 +248,6 @@ public class RemoverMotorista extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel jpRemoverVeiculo;
-    private javax.swing.JTable tCarros;
+    private javax.swing.JTable tMotoristas;
     // End of variables declaration//GEN-END:variables
 }

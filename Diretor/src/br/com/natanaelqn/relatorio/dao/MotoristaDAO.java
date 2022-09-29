@@ -19,7 +19,7 @@ public class MotoristaDAO {
             + "where id=%d";
     
     private static final String ALTERAR_SQL = "Update motorista "
-            + "set matricula ='%s', nome='%s' where id=%d";
+            + "set matricula ='%s', nome='%s', nomeDeUsuario='%s', senha='%s' where id=%d";
     
     private static final String SELECIONAR_SQL = "Select * from motorista";
     
@@ -49,7 +49,10 @@ public class MotoristaDAO {
     public static void alterar(Motorista motorista) {
         String sql = String.format(ALTERAR_SQL,
                 motorista.getMatricula(),
-                motorista.getNome());
+                motorista.getNome(), 
+                motorista.getNomeDeUsuario(),
+                motorista.getSenhaDeUsuario(),
+                motorista.getId());
         RelatorioBD.execute(sql, true);
     }
 
@@ -103,7 +106,9 @@ public class MotoristaDAO {
             byte id = rs.getByte("id");
                 String matricula = rs.getString("matricula");
                 String nome = rs.getString("nome");
-            retorno = new Motorista(id, matricula, nome);
+                String login = rs.getString("nomeDeUsuario");
+                String senha = rs.getString("senha");
+            retorno = new Motorista(id, matricula, nome, login, senha);
             RelatorioBD.desconectar(con);
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());

@@ -1,4 +1,4 @@
-package br.com.natanaelqn.relatorio.gui;
+package br.com.natanaelqn.relatorio.gui.diretor;
 
 import br.com.natanaelqn.relatorio.gui.carro.AdicionarVeiculo;
 import br.com.natanaelqn.relatorio.gui.carro.RemoverVeiculo;
@@ -12,6 +12,9 @@ import br.com.natanaelqn.relatorio.entity.Carro;
 import br.com.natanaelqn.relatorio.entity.Diretor;
 import br.com.natanaelqn.relatorio.entity.Motorista;
 import br.com.natanaelqn.relatorio.entity.Relatorio;
+import br.com.natanaelqn.relatorio.gui.motoristas.AdicionarMotorista;
+import br.com.natanaelqn.relatorio.gui.motoristas.AlterarMotorista;
+import br.com.natanaelqn.relatorio.gui.motoristas.RemoverMotorista;
 import java.text.ParseException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -20,17 +23,14 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class DiretorGUI extends javax.swing.JFrame {
+public class GerenciamentoDiretorGUI extends javax.swing.JFrame {
 
     public static final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     Diretor usuarioLogado = null;
 
-
-    public DiretorGUI() throws ParseException {
-        //RelatorioBD.inicializarBD();
+    public GerenciamentoDiretorGUI() throws ParseException {
+        //RelatorioBD.inicializarBD(); MÉTODO QUE INICIA O BD
         initComponents();
-        //atualizaRelatoriosRecebidos();
-        //atualizaRelatoriosEnviados(); 
     }
 
     private void atualizaRelatoriosRecebidos() throws ParseException {
@@ -55,8 +55,8 @@ public class DiretorGUI extends javax.swing.JFrame {
                 dadosRelatorios, camposRelatorio);
         jtRelatoriosRecebidos.setModel(modeloRel);
     }
-    
-    private void limpaRelatoriosRecebidos() throws ParseException{
+
+    private void limpaRelatoriosRecebidos() throws ParseException {
         String[] camposRelatorio = {"Id", "IdMotorista", "IdCarro.", "Data do Serviço", "Data do Envio", "Km Percorrido", "Novas Avarias", "Relato"};
         List<Relatorio> relatorios = RelatorioDAO.selecionarTodos();
         String[][] dadosRelatorios;
@@ -78,7 +78,7 @@ public class DiretorGUI extends javax.swing.JFrame {
                 dadosRelatorios, camposRelatorio);
         jtRelatoriosRecebidos.setModel(modeloRel);
     }
-    
+
     private void popularCombos() {
         cCarro.removeAllItems();
         List<Carro> carros = CarroDAO.selecionarTodos();
@@ -91,7 +91,7 @@ public class DiretorGUI extends javax.swing.JFrame {
             cbMotorista.addItem(motorista.getNome());
         }
     }
-    
+
     private void limpaCombos() {
         cCarro.removeAllItems();
         List<Carro> carros = CarroDAO.selecionarTodos();
@@ -104,7 +104,7 @@ public class DiretorGUI extends javax.swing.JFrame {
             cbMotorista.addItem("");
         }
     }
-    
+
     /*private void atualizaRelatoriosEnviados() throws ParseException {
         String[] camposRelatorio = {"Id", "IdMotorista", "IdCarro.", "Data do Serviço", "Data do Envio", "Km Percorrido", "Novas Avarias", "Relato"};
         List<Relatorio> relatorios = RelatorioDAO.selecionarRelatoriosPorMotorista(usuarioLogado);
@@ -135,8 +135,6 @@ public class DiretorGUI extends javax.swing.JFrame {
             cCarro.addItem(carro.getPlaca());
         }
     }*/
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,6 +155,8 @@ public class DiretorGUI extends javax.swing.JFrame {
         jFechar = new javax.swing.JButton();
         lUsuarioLogado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jpRelatoriosRecebidos = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -221,12 +221,16 @@ public class DiretorGUI extends javax.swing.JFrame {
 
         jLabel2.setText("Diretor");
 
+        jLabel3.setText("admin");
+
+        jLabel4.setText("123456");
+
         javax.swing.GroupLayout jpLoginLayout = new javax.swing.GroupLayout(jpLogin);
         jpLogin.setLayout(jpLoginLayout);
         jpLoginLayout.setHorizontalGroup(
             jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpLoginLayout.createSequentialGroup()
-                .addContainerGap(298, Short.MAX_VALUE)
+                .addContainerGap(299, Short.MAX_VALUE)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jpLoginLayout.createSequentialGroup()
                         .addComponent(jEntrar)
@@ -237,7 +241,11 @@ public class DiretorGUI extends javax.swing.JFrame {
                     .addComponent(tUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jUsuario)
                     .addComponent(lUsuarioLogado))
-                .addGap(296, 296, 296))
+                .addGap(27, 27, 27)
+                .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(232, 232, 232))
             .addGroup(jpLoginLayout.createSequentialGroup()
                 .addGap(372, 372, 372)
                 .addComponent(jLabel2)
@@ -253,11 +261,15 @@ public class DiretorGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(jSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jEntrar)
@@ -320,7 +332,7 @@ public class DiretorGUI extends javax.swing.JFrame {
         jpRelatoriosRecebidos.setLayout(jpRelatoriosRecebidosLayout);
         jpRelatoriosRecebidosLayout.setHorizontalGroup(
             jpRelatoriosRecebidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 794, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 794, Short.MAX_VALUE)
         );
         jpRelatoriosRecebidosLayout.setVerticalGroup(
             jpRelatoriosRecebidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,6 +409,11 @@ public class DiretorGUI extends javax.swing.JFrame {
         jMotorista.setText("Motorista");
 
         jAdicionarMotorista.setText("Adicionar");
+        jAdicionarMotorista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAdicionarMotoristaActionPerformed(evt);
+            }
+        });
 
         jAlterarMotorista.setText("Alterar");
         jAlterarMotorista.addActionListener(new java.awt.event.ActionListener() {
@@ -406,6 +423,11 @@ public class DiretorGUI extends javax.swing.JFrame {
         });
 
         jRemoverMotorista.setText("Remover");
+        jRemoverMotorista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRemoverMotoristaActionPerformed(evt);
+            }
+        });
 
         tKmAtual.setEditable(false);
 
@@ -572,13 +594,14 @@ public class DiretorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jEntrarActionPerformed
 
     private void jFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFecharActionPerformed
-        tUsuario.setEnabled(true);
-        tSenha.setEnabled(true);
-        jEntrar.setEnabled(true);
-        tUsuario.setText("");
-        tSenha.setText("");
-        lUsuarioLogado.setText("Nenhum Login Ativo");
         try {
+            tUsuario.setEnabled(true);
+            tSenha.setEnabled(true);
+            jEntrar.setEnabled(true);
+            tUsuario.setText("");
+            tSenha.setText("");
+            lUsuarioLogado.setText("Nenhum Login Ativo");
+
             limpaRelatoriosRecebidos();
             limpaCombos();
             tMarca.setText("");
@@ -586,8 +609,7 @@ public class DiretorGUI extends javax.swing.JFrame {
             tAvariado.setText("");
             tKmAtual.setText("");
             tMatricula.setText("");
-        } catch (ParseException ex) {
-            Logger.getLogger(DiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_jFecharActionPerformed
 
@@ -595,7 +617,7 @@ public class DiretorGUI extends javax.swing.JFrame {
         try {
             atualizaRelatoriosRecebidos();
         } catch (ParseException ex) {
-            Logger.getLogger(DiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jpRelatoriosRecebidosMouseClicked
 
@@ -603,7 +625,7 @@ public class DiretorGUI extends javax.swing.JFrame {
         try {
             atualizaRelatoriosRecebidos();
         } catch (ParseException ex) {
-            Logger.getLogger(DiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jAtualizarActionPerformed
 
@@ -626,7 +648,7 @@ public class DiretorGUI extends javax.swing.JFrame {
     private void cbMotoristaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMotoristaItemStateChanged
         Motorista motorista = MotoristaDAO.selecionarMotoristaPorNome(cbMotorista.getSelectedItem().toString());
         tMatricula.setText(motorista.getMatricula());
-        
+
     }//GEN-LAST:event_cbMotoristaItemStateChanged
 
     private void cbMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMotoristaActionPerformed
@@ -639,7 +661,12 @@ public class DiretorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jAlterarCarroActionPerformed
 
     private void jAlterarMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAlterarMotoristaActionPerformed
-        // TODO add your handling code here:
+        try {
+            AlterarMotorista alterarMotorista = new AlterarMotorista();
+            alterarMotorista.setVisible(true);
+        } catch (Exception e) {
+            Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(Level.SEVERE, null, e);
+        }
     }//GEN-LAST:event_jAlterarMotoristaActionPerformed
 
     private void jNovoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNovoCarroActionPerformed
@@ -651,10 +678,28 @@ public class DiretorGUI extends javax.swing.JFrame {
         try {
             RemoverVeiculo remover = new RemoverVeiculo();
             remover.setVisible(true);
-        } catch (ParseException ex) {
-            Logger.getLogger(DiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException e) {
+            Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_jRemoverCarroActionPerformed
+
+    private void jAdicionarMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAdicionarMotoristaActionPerformed
+        try {
+            AdicionarMotorista inserirMotorista = new AdicionarMotorista();
+            inserirMotorista.setVisible(true);
+        } catch (Exception e) {
+            Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }//GEN-LAST:event_jAdicionarMotoristaActionPerformed
+
+    private void jRemoverMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoverMotoristaActionPerformed
+        try {
+            RemoverMotorista removerMotorista = new RemoverMotorista();
+            removerMotorista.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jRemoverMotoristaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -673,14 +718,18 @@ public class DiretorGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -690,9 +739,9 @@ public class DiretorGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new DiretorGUI().setVisible(true);
+                    new GerenciamentoDiretorGUI().setVisible(true);
                 } catch (ParseException ex) {
-                    Logger.getLogger(DiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GerenciamentoDiretorGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -713,6 +762,8 @@ public class DiretorGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jKmAtual;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jMarca;
     private javax.swing.JLabel jMarca1;
     private javax.swing.JLabel jModelo;
