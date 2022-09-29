@@ -68,9 +68,9 @@ public class RelatorioBD {
         execute(con, sql);
 
         //INSERIR INTORMAÇÕES DAS ENTIDADES
-        sql = "Insert into diretor (matricula, nome, nomeDeUsuario, senha) values ('2022001', 'Administrador', 'admin', '123456')";
+        sql = "Insert into diretor (matricula, nome, nomeDeUsuario, senha) values ('1111111', 'Administrador', 'admin', '123456')";
         execute(con, sql);
-        sql = "Insert into motorista (matricula, nome, nomeDeUsuario, senha) values ('2022002', 'Natan', 'natanael', '222333')";
+        sql = "Insert into motorista (matricula, nome, nomeDeUsuario, senha) values ('2222222', 'Motorista', 'motorista', '123456')";
         execute(con, sql);
         sql = "Insert into motorista (matricula, nome, nomeDeUsuario, senha) values ('2022005', 'Antonio', 'antonio', '111222')";
         execute(con, sql);
